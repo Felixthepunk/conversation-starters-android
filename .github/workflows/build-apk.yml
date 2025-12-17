@@ -1,0 +1,113 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    
+    - name: Cache Gradle packages
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+    
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    
+    - name: Accept Android SDK licenses
+      run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+    
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug --stacktrace
+    
+    - name: Build Release APK
+      run: ./gradlew assembleRelease --stacktrace
+    
+    - name: Upload Debug APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: conversation-starters-debug
+        path: app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 30
+    
+    - name: Upload Release APK  
+      uses: actions/upload-artifact@v4
+      with:
+        name: conversation-starters-release
+        path: app/build/outputs/apk/release/app-release-unsigned.apk
+        retention-days: 30
+    
+    - name: Create Release
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v1.0.${{ github.run_number }}
+        release_name: Conversation Starters v1.0.${{ github.run_number }}
+        body: |
+          🎉 **Conversation Starters Android App**
+          
+          **Features:**
+          - 10 conversation categories (Children, Teens, Parents, Couples, etc.)
+          - Daily push notifications for "talking points"
+          - Smart question management with favorites
+          - 25+ pre-loaded meaningful questions
+          - Material Design 3 UI
+          
+          **Downloads:**
+          - **app-debug.apk**: For testing and development
+          - **app-release-unsigned.apk**: Production version
+          
+          **Installation:**
+          1. Download APK file
+          2. Enable "Install from unknown sources" in Android settings
+          3. Install and enjoy meaningful conversations!
+        draft: false
+        prerelease: false
+    
+    - name: Upload Debug APK to Release
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: app/build/outputs/apk/debug/app-debug.apk
+        asset_name: conversation-starters-debug.apk
+        asset_content_type: application/vnd.android.package-archive
+    
+    - name: Upload Release APK to Release
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: app/build/outputs/apk/release/app-release-unsigned.apk
+        asset_name: conversation-starters-release.apk
+        asset_content_type: application/vnd.android.package-archive
