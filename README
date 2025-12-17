@@ -1,0 +1,86 @@
+md
+💬 Conversation Starters - Android App
+Build Status License: MIT Android
+
+A thoughtfully designed Android application that helps people create deeper, more meaningful conversations across different relationships and contexts with daily push notifications.
+
+📱 Download APK
+🎉 Ready to use! No compilation needed!
+
+📲 Download Latest APK
+Choose your version:
+
+conversation-starters-debug.apk - For testing and development
+conversation-starters-release.apk - Production version
+Requires Android 7.0+ (API 24)
+
+✨ Features
+🎯 Conversation Categories
+👶 Children: Fun, imagination-stimulating questions for kids
+🧒 Teens: Age-appropriate questions that encourage critical thinking
+👨‍👩‍👧‍👦 Parents: Reflective questions about parenting experiences
+👫 Siblings: Questions to strengthen sibling bonds
+💕 Couples: Relationship-deepening conversation starters
+👥 Friends: Questions to enhance friendships
+🏠 Family: General family bonding questions
+💼 Workplace: Professional yet engaging topics
+🤔 Deep Thoughts: Philosophy and meaning-of-life questions
+😄 Light & Fun: Lighthearted, entertaining topics
+🔔 Daily Talking Points
+Customizable Notifications: Set your preferred time for daily conversation starters
+Smart Selection: Prioritizes unused questions to avoid repetition
+Category Preferences: Choose specific categories or random selection
+Rich Notifications: Question preview directly in notification panel
+🎨 User Experience
+Material Design 3: Modern, intuitive interface
+Progress Tracking: Visual indicators showing completion by category
+Favorites System: Save your favorite questions for later
+Difficulty Levels: Questions ranging from easy icebreakers to deep discussions
+Offline Support: All questions stored locally, no internet required
+🚀 Installation
+Direct APK Download (Recommended)
+Download APK from releases page
+Enable Unknown Sources: Settings → Security → Install from Unknown Sources
+Install: Tap the downloaded APK file
+Enjoy: Open "Conversation Starters" from your app drawer
+🎯 Quick Start
+Launch App: Open Conversation Starters
+Browse Categories: Choose a relationship context
+Get Questions: Tap any category to see curated questions
+Enable Notifications: Settings → Daily Notifications → Set your time
+Start Conversations: Use daily talking points to connect with others
+🔧 Technical Details
+Language: Kotlin
+Architecture: MVVM with Repository pattern
+Database: Room (SQLite) with pre-populated content
+UI: Material Design 3 Components
+Notifications: WorkManager + AlarmManager
+Min SDK: API 24 (Android 7.0) - 94% device compatibility
+Target SDK: API 34 (Android 14)
+📊 Pre-loaded Content
+The app comes with 25+ thoughtfully curated questions across all categories:
+
+✅ Age-appropriate content for different relationship contexts
+✅ Balanced difficulty from light icebreakers to meaningful discussions
+✅ Diverse topics covering emotions, experiences, dreams, and values
+✅ Expandable database for easy addition of new questions
+🔔 Notification Features
+Daily Talking Points
+Flexible Scheduling: Choose any time between 6 AM - 11 PM
+Category Selection: Pick specific categories or get random questions
+Smart Rotation: Unused questions prioritized to ensure variety
+Instant Access: Tap notification to jump directly to the question
+Privacy First
+Local Storage: All data stays on your device
+No Tracking: No analytics or personal data collection
+Offline First: Full functionality without internet connection
+🌟 Show Your Support
+If you find this app helpful:
+
+⭐ Star the repository on GitHub
+📱 Share with friends who love meaningful conversations
+🐛 Report bugs to help improve the app
+💡 Suggest features for future versions
+Made with ❤️ for meaningful connections
+
+Conversation Starters - Because every great relationship starts with a great question.
